@@ -1,0 +1,10 @@
+{% extends 'dashboard/base.html' %}
+{% load humanize %}
+{% block content %}
+
+        <div>거래처명: {{ eachAssociate.name }}</div>
+        <div>전화번호: {{ eachAssociate.phone_number }}</div>
+        <div>계좌정보: {{ eachAssociate.bank }} / {{ eachAssociate.account_number }} / {{ eachAssociate.bank_owner }}</div>
+
+        <a class="btn btn-primary" href="{% url 'dashboard:edit_associate' eachAssociate.pk %}" role="button">수정하기</a>
+{% endblock %}

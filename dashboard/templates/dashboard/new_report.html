@@ -1,0 +1,15 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+    <div class="jumbotron">
+    <h1 class="display-4">품의서 작성하기</h1>
+    <hr class="my-4">
+
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <hr class="my-4">
+        <button type="submit" class="save btn btn-primary btn-lg">완료</button>
+        <hr class="my-4">
+        <div>계좌정보: 자바스크립트로 동적으로 구현해야 함. 지금 내가할 게 아님 </div>
+    </form>
+{% endblock %}

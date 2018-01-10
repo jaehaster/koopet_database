@@ -1,0 +1,44 @@
+{% extends 'dashboard/base.html' %}
+
+{% load humanize %}
+{% block content %}
+
+        <h1 class="text-center"><a href="">전체 품의서 목록</a></h1>
+
+        <table class="table table-hover">
+          <thead class="table-active">
+            <tr>
+              <th scope="col">기안일</th>
+              <th scope="col">공급자</th>
+              <th scope="col">총금액</th>
+              <th scope="col">계좌정보</th>
+              <th scope="col">처리상태</th>
+              <th scope="col">상세보기</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          {% for eachReport in reports_list %}
+            {% if eachReport.completed %}
+                <tr class="table-success">
+                {% else %}
+                <tr class="table-light">
+                {% endif %}
+                  <th scope="row">{{ eachReport.created_date }}</th>
+                  <td><a href="{% url 'dashboard:edit_associate' eachReport.associate.pk %}">{{ eachReport.associate }}</a></td>
+                  <td>{{ eachReport.total_amount|intcomma }} 원</td>
+                  <td>{{ eachReport.associate.bank }} / {{ eachReport.associate.account_number }} / {{ eachReport.associate.bank_owner }}</td>
+                  <td>
+                    {% if eachReport.completed %}
+                      완료
+                    {% else %}
+                      미처리
+                    {% endif %}
+                  </td>
+                  <td><a href="{% url 'dashboard:edit_report' eachReport.pk %}">상세 보기</td>
+                </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+{% endblock %}

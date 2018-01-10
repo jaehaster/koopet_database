@@ -1,0 +1,59 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="ko">
+    <head>
+        <title>쿠펫 매입 리스트</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="{% static 'css/dashboard_1.css' %}">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    </head>
+    <body>
+      <div class="container">
+      {% if user.is_authenticated %}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="{% url 'dashboard:mainboard' %}">홈</a>
+          <button class="navbar-toggler" type="button" ><span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item {% if request.path == '/report_list' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'dashboard:report_list' %}">전체 품의서 목록</a>
+              </li>
+              <li class="nav-item {% if request.path == '/associates_list.html' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'dashboard:associate_list' %}">전체 거래처 목록</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">신규 작성</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'dashboard:new_report' %}"><img src="/static/octicons/pencil.svg" width="12px"> 새 품의서 작성</a>
+                  <a class="dropdown-item" href="{% url 'dashboard:new_associate' %}"><img src="/static/octicons/pencil.svg" width="12px"> 신규 거래처 등록</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">상품 작성 - 아직 작동 안함</a>
+                  <a class="dropdown-item" href="#">공급계약 작성 - 아직 작동 안함</a>
+                </div>
+              </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="아직 작동 안함" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          </div>
+          <a href="{% url 'logout' %}">로그 아웃</a>
+        </nav>
+        {% block content %}
+        {% endblock %}
+      {% else  %}
+        <a href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-lock">로그인</span></a>
+      {% endif %}
+      </div>
+
+
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+    </body>
+</html>

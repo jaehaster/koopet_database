@@ -1,0 +1,17 @@
+{% extends 'dashboard/base.html' %}
+{% load humanize %}
+{% block content %}
+
+        <div>최초 기안일: {{ eachReport.created_date }} / 최종 수정일: {{ eachReport.last_edited_date }}</div>
+        <div>공급처: {{ eachReport.associate }}</div>
+        <div>구매 품목: {{ eachReport.item_list }}</div>
+        <div>총액: {{ eachReport.total_amount|intcomma }} 원</div>
+        <div>현재 상태 :
+          {% if eachReport.completed %}
+          완료
+          {% else %}
+          미처리
+          {% endif %}
+        </div>
+        <a class="btn btn-primary" href="{% url 'dashboard:edit_report' eachReport.pk %}" role="button">수정하기</a>
+{% endblock %}
