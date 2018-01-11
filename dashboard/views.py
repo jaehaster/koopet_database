@@ -39,6 +39,7 @@ def new_report(request):
         if form.is_valid():
             report = form.save(commit=False)   # 여기서 report 는 그냥 아무 변수. 어떤 것으로 설정해도 상관없고, redirect  에 넘겨주기 위해서 만든 것임.
             report.last_edited_date = timezone.now()
+            report.writer = request.user
             report.save() # 여기서 자료를 저장하면, 기존 불러온 자료에 대한 수정이 아니라, 신규로 저장된다.
             return redirect('dashboard:report_detail', report.pk)
     else:

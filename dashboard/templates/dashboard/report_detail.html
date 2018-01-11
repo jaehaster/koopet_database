@@ -1,7 +1,7 @@
 {% extends 'dashboard/base.html' %}
 {% load humanize %}
 {% block content %}
-
+        <h1>신규 품의서 등록 완료</h1>
         <div>최초 기안일: {{ eachReport.created_date }} / 최종 수정일: {{ eachReport.last_edited_date }}</div>
         <div>공급처: {{ eachReport.associate }}</div>
         <div>구매 품목: {{ eachReport.item_list }}</div>
