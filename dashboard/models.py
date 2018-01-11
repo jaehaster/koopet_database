@@ -24,7 +24,7 @@ class Associate(models.Model):
 
 
 class Report(models.Model):
-    writer = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    writer = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True)
     associate = models.ForeignKey(Associate, on_delete=models.CASCADE, verbose_name="거래처명")
     item_list = models.TextField(verbose_name="품목", blank=True)
     total_amount = models.IntegerField(verbose_name="총액", default=0)
