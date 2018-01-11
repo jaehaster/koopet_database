@@ -20,7 +20,7 @@ def report_list(request):
 
 @login_required
 def associate_list(request):
-    associates = Associate.objects.all()
+    associates = Associate.objects.all().order_by('name')
     return render(request, 'dashboard/associate_list.html', {'associate_list':associates})
 
 @login_required

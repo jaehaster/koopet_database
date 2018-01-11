@@ -19,6 +19,9 @@ class Associate(models.Model):
     associate_type = models.CharField(verbose_name="타입", max_length=5, choices=TYPE_CHOICES)
     social_security_number = models.CharField(verbose_name="주민등록번호", max_length=14, blank=True)
 
+    class Meta:
+        ordering = ["name"]
+
     def __str__(self):
         return self.name
 
