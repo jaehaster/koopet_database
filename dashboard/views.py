@@ -5,6 +5,7 @@ from datetime import timedelta
 from dashboard.forms import ReportForm, AssociateForm
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from django.core.mail import mail_admins
 
 @login_required
 def mainboard(request):
@@ -41,6 +42,16 @@ def new_report(request):
             report.last_edited_date = timezone.now()
             report.writer = request.user
             report.save() # 여기서 자료를 저장하면, 기존 불러온 자료에 대한 수정이 아니라, 신규로 저장된다.
+            #mail_admins('새 품의서 등록 알림','새 품의서가 등록되었습니다.')
+            '''
+            send_mail(
+                '새 품의서 등록 알림',
+                '새 품의서가 등록되었습니다.',
+                'emailnotification@pythonanywhere.com',
+                ['kpetinter@gmail.com'],
+                fail_silently=False,
+            )
+            '''
             return redirect('dashboard:report_detail', report.pk)
     else:
         form = ReportForm()
@@ -54,8 +65,9 @@ def edit_report(request, report_id):
         if form.is_valid():
             report = form.save(commit=False)   # 여기서 report 는 그냥 아무 변수. 어떤 것으로 설정해도 상관없고, redirect  에 넘겨주기 위해서 만든 것임.
             report.last_edited_date = timezone.now()
+            report.completed_date = timezone.now()
             report.save()
-            return redirect('dashboard:report_detail', report.pk)
+            return redirect('dashboard:report_list')
     else:
         form = ReportForm(instance=report)
     return render(request, 'dashboard/edit_report.html', {'form':form})  # 입력 폼을 불러온 페이지에 넘겨준다.
@@ -80,7 +92,7 @@ def edit_associate(request, associate_id):
         if form.is_valid():
             associate = form.save(commit=False)
             associate.save()
-            return redirect('dashboard:associate_detail', associate.pk)
+            return redirect('dashboard:associate_list')
     else:
         form = AssociateForm(instance=associate)
 

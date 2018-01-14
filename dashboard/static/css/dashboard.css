@@ -22,3 +22,21 @@ th.account_info{width:35%}
 th.phone_number{width:13%}
 
 h2.page-title {margin:30px auto 20px}
+
+
+form label {width: 170px;vertical-align: top;margin-right: 15px; text-align: right}
+form input, select, textarea {width: 300px}
+form input[type="checkbox"] {width: auto}
+form.formCenterAlign{ margin: auto }
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) { }
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) { }
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) { }
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { }

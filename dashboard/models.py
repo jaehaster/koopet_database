@@ -17,7 +17,7 @@ class Associate(models.Model):
     web_address = models.URLField(verbose_name="홈페이지", blank=True)
     fax = models.CharField(verbose_name="팩스", max_length=20, blank=True)
     associate_type = models.CharField(verbose_name="타입", max_length=5, choices=TYPE_CHOICES)
-    social_security_number = models.CharField(verbose_name="주민등록번호", max_length=14, blank=True)
+    social_security_number = models.CharField(verbose_name="주민등록번호 (개인일 경우)", max_length=14, blank=True)
 
     class Meta:
         ordering = ["name"]
@@ -32,7 +32,7 @@ class Report(models.Model):
     item_list = models.TextField(verbose_name="품목", blank=True)
     total_amount = models.IntegerField(verbose_name="총액", default=0)
     atax_published = models.BooleanField(verbose_name="세금계산서 발행 여부", blank=True)
-    completed = models.BooleanField(verbose_name="처리 상태", default=False)
+    completed = models.BooleanField(verbose_name="처리 상태(완료시 체크)", default=False)
     completed_date = models.DateTimeField(verbose_name="완료일시", default=timezone.now)
     created_date = models.DateTimeField(verbose_name="기안일시", default=timezone.now)
     last_edited_date = models.DateTimeField(verbose_name="최종수정일", default=timezone.now)
