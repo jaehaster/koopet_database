@@ -1,0 +1,17 @@
+{% extends 'dashboard/base.html' %}
+{% load humanize %}
+{% block content %}
+        <h1>신규 품의서 등록 완료</h1>
+        <div>최초 기안일: {{ eachRefund.created_date }} / 최종 수정일: {{ eachRefund.last_edited_date }}</div>
+        <div>구매 발생 장소: {{ eachRefund.refund_type }}</div>
+        <div>내용: {{ eachRefund.note }}</div>
+        <div>총액: {{ eachRefund.total_amount|intcomma }} 원</div>
+        <div>현재 상태 :
+          {% if eachRefund.completed %}
+          완료
+          {% else %}
+          미처리
+          {% endif %}
+        </div>
+        <a class="btn btn-primary" href="{% url 'dashboard:edit_refund' eachRefund.pk %}" role="button">수정하기</a>
+{% endblock %}

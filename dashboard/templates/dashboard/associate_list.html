@@ -4,7 +4,7 @@
 {% block content %}
         <h2 class="text-center page-title">전체 거래처 목록 (가나다순)</h2>
 
-        <table class="table table-hover">
+        <table class="table table-hover table-sm">
           <thead class="table-active">
             <tr>
               <th scope="col" class="associate">거래처명</th>
@@ -16,16 +16,15 @@
             </tr>
           </thead>
           <tbody>
-
           {% for eachAssociate in associate_list %}
-              <tr class="table-light">
-                  <th scope="row">{{ eachAssociate.name }}</th>
-                  <td class="text-center">{{ eachAssociate.phone_number }}</td>
-                  <td class="text-center">{{ eachAssociate.person_in_charge }}</td>
-                  <td class="text-center">{{ eachAssociate.bank }}/{{ eachAssociate.account_number }}/{{ eachAssociate.bank_owner }}</td>
-                  <td>{{ eachAssociate.main_items }}</td>
-                  <td class="text-center"><a class="btn btn-primary btn-sm" href='{% url 'dashboard:edit_associate' eachAssociate.pk %}' role="button">수정하기</a></td>
-                </tr>
+            <tr class="table-light">
+                <th scope="row">{{ eachAssociate.name }}</th>
+                <td class="text-center">{{ eachAssociate.phone_number }}</td>
+                <td class="text-center">{{ eachAssociate.person_in_charge }}</td>
+                <td class="text-center">{{ eachAssociate.bank }}/{{ eachAssociate.account_number }}/{{ eachAssociate.bank_owner }}</td>
+                <td>{{ eachAssociate.main_items }}</td>
+                <td class="text-center"><a class="btn btn-primary btn-sm" href='{% url 'dashboard:edit_associate' eachAssociate.pk %}' role="button">수정하기</a></td>
+              </tr>
           {% endfor %}
         </tbody>
       </table>

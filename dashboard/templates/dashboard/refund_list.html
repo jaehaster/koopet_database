@@ -1,0 +1,44 @@
+{% extends 'dashboard/base.html' %}
+
+{% load humanize %}
+{% block content %}
+
+        <h2 class="text-center page-title">전체 품의서 목록 (최근 등록순)</h2>
+
+        <table class="table table-hover table-sm">
+          <thead class="table-active">
+            <tr>
+              <th scope="row" class="date" scope="col">기안일</th>
+              <th class="associate" scope="col">환불 타입</th>
+              <th class="total_amount"scope="col">총금액</th>
+              <th class="account_info" scope="col">계좌정보</th>
+              <th class="status" scope="col">처리상태</th>
+              <th class="writer" scope="col">기안인</th>
+              <th class="detailview" scope="col">비고</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          {% for eachRefund in refunds_list %}
+
+                <tr class="table-light">
+
+                  <th scope="row">{{ eachRefund.created_date.date }}</th>
+                  <td class="text-center">{{ eachRefund.refund_type }}</td>
+                  <td class="text-right">{{ eachRefund.total_amount|intcomma }} 원</td>
+                  <td class="text-center">{{ eachRefund.bank }} / {{ eachRefund.account_number }} / {{ eachRefund.bank_owner }}</td>
+                  <td class="text-center">
+                    {% if eachRefund.completed %}
+                      <span class="badge badge-pill badge-success">완료 <br /> {{ eachRefund.completed_date.date }}</span>
+                    {% else %}
+                      <span class="badge badge-pill badge-danger">미처리</span>
+                    {% endif %}
+                  </td>
+                  <td class="text-center">{{ eachRefund.writer.last_name }}{{ eachRefund.writer.first_name }}</td>
+                  <td class="text-center"><a href="{% url 'dashboard:edit_refund' eachRefund.pk %}">상세보기</td>
+                </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+{% endblock %}

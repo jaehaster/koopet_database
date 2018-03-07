@@ -1,0 +1,32 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+    <div class="jumbotron">
+      <h2 class="display-4 text-center">환불 품의서 수정하기</h2>
+      <hr class="my-4">
+      <div class="row">
+        <form method="POST" class="post-form formCenterAlign" name="refund_form">{% csrf_token %}
+          {{ form.refund_type.label_tag }}
+          <select name="refund_type" required="" id="id_refund_type" onchange="disable_enable()">
+            <option value="" selected="">---------</option>
+            <option value="매장 구매">매장</option>
+            <option value="온라인 구매">온라인</option>
+            <option value="기타">기타</option>
+          </select>
+          <br/>
+          {{ form.order_number.label_tag }}{{ form.order_number }}<br/>
+          {{ form.order_date.label_tag }}{{ form.order_date }}<br/>
+          {{ form.note.label_tag }}{{ form.note }}<br/>
+          {{ form.total_amount.label_tag }}{{ form.total_amount }}<br/>
+          {{ form.bank.label_tag }}{{ form.bank }}<br/>
+          {{ form.account_number.label_tag }}{{ form.account_number }}<br/>
+          {{ form.bank_owner.label_tag }}{{ form.bank_owner }}<br/>
+          {{ form.phone_number.label_tag }}{{ form.phone_number }}<br/>
+          <hr class="my-4">
+          <div class="col-2 offset-md-10 text-right">
+            <button type="submit" class="save btn btn-primary btn-md">완료</button>
+          </div>
+        </form>
+      </div>
+    </div>
+{% endblock %}

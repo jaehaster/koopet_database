@@ -6,8 +6,21 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="{% static 'css/dashboard.css' %}?{% now "U" %}">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/dashboard.css' %}?{% now "U" %}">
+        <link rel="stylesheet" href="{% static 'jquery-ui-1.12.1.custom/jquery-ui.css' %}?{% now "U" %}">
+
+
+        <!-- Optional JavaScript -->
+        <script language="javascript" type="text/javascript" src="{% static 'js/manyjs.js' %}"></script>
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="{% static 'jquery-ui-1.12.1.custom/jquery-ui.min.js' %}"></script>
+
+        <!--script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script-->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+
+
     </head>
     <body>
       <div class="container">
@@ -15,8 +28,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <a class="navbar-brand" href="{% url 'dashboard:mainboard' %}">주상황판</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <span class="navbar-toggler-icon"></span></button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item {% if request.path == '/report_list' %}active{% endif %}">
@@ -25,11 +37,15 @@
               <li class="nav-item {% if request.path == '/associates_list.html' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'dashboard:associate_list' %}">전체 거래처 목록</a>
               </li>
+              <li class="nav-item {% if request.path == '/refund_list.html' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'dashboard:refund_list' %}">환불 목록</a>
+              </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">신규 작성</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="{% url 'dashboard:new_report' %}"><img src="/static/octicons/pencil.svg" width="12px"> 새 품의서 작성</a>
-                  <a class="dropdown-item" href="{% url 'dashboard:new_associate' %}"><img src="/static/octicons/pencil.svg" width="12px"> 신규 거래처 등록</a>
+                  <a class="dropdown-item" href="{% url 'dashboard:new_report' %}"><img src="/static/octicons/pencil.svg" width="12px">새 품의서 작성</a>
+                  <a class="dropdown-item" href="{% url 'dashboard:new_associate' %}"><img src="/static/octicons/pencil.svg" width="12px">신규 거래처 등록</a>
+                  <a class="dropdown-item" href="{% url 'dashboard:new_refund' %}"><img src="/static/octicons/pencil.svg" width="12px">환불 요청</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#">상품 작성 - 아직 작동 안함</a>
                   <a class="dropdown-item" href="#">공급계약 작성 - 아직 작동 안함</a>
@@ -54,10 +70,23 @@
       </div>
 
 
-      <!-- Optional JavaScript -->
-      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
     </body>
 </html>
+
+<script type="text/javascript">
+  $(document).ready(function() {    
+    $( "#id_order_date" ).datepicker({dateFormat: "yy-mm-dd"  });
+  });
+</script>
+
+<script type="text/javascript">
+  $('#id_refund_type').change(function () {
+      if ($(this).find('option:selected').text() == '온라인 구매') {
+          $('#id_order_number').prop('disabled', false);
+          $('#id_order_date').prop('disabled', true);
+      } else {
+          $('#id_order_number').prop('disabled', true);
+          $('#id_order_date').prop('disabled', false);
+      }
+  });
+</script>
