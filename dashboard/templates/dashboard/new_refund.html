@@ -7,14 +7,7 @@
 
     <div class="row">
       <form method="POST" class="post-form formCenterAlign" name="refund_form">{% csrf_token %}
-          {{ form.refund_type.label_tag }}
-          <select name="refund_type" required="" id="id_refund_type">
-            <option value="" selected="">---------</option>
-            <option value="매장">매장 구매</option>
-            <option value="온라인">온라인 구매</option>
-            <option value="기타">기타</option>
-          </select>
-          <br/>
+          {{ form.refund_type.label_tag }}{{ form.refund_type }} <br/>
           {{ form.order_number.label_tag }}{{ form.order_number }}<br/>
           {{ form.order_date.label_tag }}{{ form.order_date }}<br/>
           {{ form.note.label_tag }}{{ form.note }}<br/>
@@ -31,4 +24,34 @@
       </form>
     </div>
 
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $( "#id_order_date" ).datepicker({dateFormat: "yy-mm-dd"  });
+      });
+    </script>
+
+    <script type="text/javascript">
+      $('#id_refund_type').change(function () {
+          if ($(this).find('option:selected').text() == '온라인') {
+              $('#id_order_number').prop('disabled', false);
+              $('#id_order_date').val('');
+              $('#id_order_date').prop('disabled', true);
+          } else {
+              $('#id_order_number').val('');
+              $('#id_order_number').prop('disabled', true);
+              $('#id_order_date').prop('disabled', false);
+          }
+      });
+      $('#id_associate_type').change(function () {
+          if ($(this).find('option:selected').text() == '개인') {
+              $('#id_person_in_charge').val($('#id_name').val());
+              $('#id_bank_owner').val($('#id_name').val());
+              $('#id_social_security_number').prop('disabled', false);
+          } else {
+
+              $('#id_social_security_number').prop('disabled', true);
+          }
+      });
+    </script>
 {% endblock %}
